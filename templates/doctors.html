@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Health.io</title>
+    <title>NeuroSpy</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -36,6 +36,11 @@
     * Author: BootstrapMade.com
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
 </head>
 
 
@@ -73,14 +78,14 @@
                 <li><a class="nav-link scrollto" href="index.html">Departments</a></li>
                 <li><a class="nav-link scrollto" href="index.html">Contact</a></li>
                 {% if user.is_authenticated %}
-                   <li class="nav-item active">
-                        <a class="nav-item nav-link" href="statistics.html">Your Statistics</a>
+                    <li class="nav-item active">
+                        <a class="nav-item nav-link" href="charts.html">Your Statistics</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-item nav-link" href="robot.html">Your Assistant</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-item nav-link" href="training.html">Program</a>
+                        <a class="nav-item nav-link" href="courses.html">Courses</a>
                     </li>
                     <li><a class="nav-link scrollto" href="doctors.html">Doctors</a></li>
                     <li class="nav-item active">
@@ -96,92 +101,57 @@
 
     </div>
 </header><!-- End Header --><br><br><br><br><br>
+{% block content %}
+  <h2 style="color: #3498db;">Recommended Doctors</h2>
 
-    <section id="doctors" class="doctors">
-        <div class="container">
+  <!-- Filters Form -->
+  <form method="GET">
+    <label for="category-select" style="margin-right: 10px;">Select Category:</label>
+    <select id="category-select" name="category">
+      <option value="" {% if not selected_category %}selected{% endif %}>All Categories</option>
+      {% for category in categories %}
+        <option value="{{ category.value }}" {% if selected_category == category.value %}selected{% endif %}>{{ category.display }}</option>
+      {% endfor %}
+    </select>
 
-            <div class="section-title">
-                <h2>Your Doctors</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                    fugiat sit in iste officiis commodi quidem hic quas.</p>
+    <label for="hospital-type-select" style="margin-right: 10px; margin-left: 20px;">Select Hospital Type:</label>
+    <select id="hospital-type-select" name="hospital_type">
+      <option value="" {% if not selected_hospital_type %}selected{% endif %}>All Types</option>
+      {% for hospital_type in hospital_types %}
+        <option value="{{ hospital_type.value }}" {% if selected_hospital_type == hospital_type.value %}selected{% endif %}>{{ hospital_type.display }}</option>
+      {% endfor %}
+    </select>
+
+    <button type="submit" style="background-color: #3498db; color: #fff; margin-left: 20px;">Filter</button>
+  </form>
+
+  <!-- Doctors List -->
+  <ul style="list-style-type: none; padding: 0;">
+    {% for doctor in doctors %}
+      {% if not selected_category or doctor.specialty_lower == selected_category %}
+        {% if not selected_hospital_type or doctor.hospital_type|lower == selected_hospital_type|lower %}
+          <li style="background-color: #ecf0f1; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+            <strong style="color: #2c3e50;">{{ doctor.name }}</strong> -
+            <span style="color: #e74c3c;">{{ doctor.specialty }}</span> -
+            <span style="color: #27ae60;">{{ doctor.contact_number }}</span> -
+            <span style="color: #f39c12;">{{ doctor.email }}</span> -
+            <span style="color: #3498db;">{{ doctor.hospital_type }}</span>
+
+            <!-- Buttons for Email and Phone -->
+            <div>
+              <a href="mailto:{{ doctor.email }}" style="text-decoration: none;">
+                <button style="background-color: #3498db; color: #fff;">Email</button>
+              </a>
+              <a href="tel:{{ doctor.contact_number }}" style="text-decoration: none;">
+                <button style="background-color: #2ecc71; color: #fff;">Call</button>
+              </a>
             </div>
-
-            <div class="row">
-
-                <div class="col-lg-6">
-                    <div class="member d-flex align-items-start">
-                        <div class="pic"><img src="static/img/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>
-                        <div class="member-info">
-                            <h4>Walter White</h4>
-                            <span>Chief Medical Officer</span>
-                            <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
-                            <div class="social">
-                                <a href=""><i class="ri-twitter-fill"></i></a>
-                                <a href=""><i class="ri-facebook-fill"></i></a>
-                                <a href=""><i class="ri-instagram-fill"></i></a>
-                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 mt-4 mt-lg-0">
-                    <div class="member d-flex align-items-start">
-                        <div class="pic"><img src="static/img/doctors/doctors-2.jpg" class="img-fluid" alt=""></div>
-                        <div class="member-info">
-                            <h4>Sarah Jhonson</h4>
-                            <span>Anesthesiologist</span>
-                            <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
-                            <div class="social">
-                                <a href=""><i class="ri-twitter-fill"></i></a>
-                                <a href=""><i class="ri-facebook-fill"></i></a>
-                                <a href=""><i class="ri-instagram-fill"></i></a>
-                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 mt-4">
-                    <div class="member d-flex align-items-start">
-                        <div class="pic"><img src="static/img/doctors/doctors-3.jpg" class="img-fluid" alt=""></div>
-                        <div class="member-info">
-                            <h4>William Anderson</h4>
-                            <span>Cardiology</span>
-                            <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
-                            <div class="social">
-                                <a href=""><i class="ri-twitter-fill"></i></a>
-                                <a href=""><i class="ri-facebook-fill"></i></a>
-                                <a href=""><i class="ri-instagram-fill"></i></a>
-                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 mt-4">
-                    <div class="member d-flex align-items-start">
-                        <div class="pic"><img src="static/img/doctors/doctors-4.jpg" class="img-fluid" alt=""></div>
-                        <div class="member-info">
-                            <h4>Amanda Jepson</h4>
-                            <span>Neurosurgeon</span>
-                            <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-                            <div class="social">
-                                <a href=""><i class="ri-twitter-fill"></i></a>
-                                <a href=""><i class="ri-facebook-fill"></i></a>
-                                <a href=""><i class="ri-instagram-fill"></i></a>
-                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section><!-- End Doctors Section --><br><br>
-
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endblock %}<!-- End Doctors Section --><br><br>
 
 
 <!-- ======= Footer ======= -->

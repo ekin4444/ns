@@ -71,18 +71,20 @@
                 <li><a class="nav-link scrollto" href="#about">About</a></li>
                 <li><a class="nav-link scrollto" href="#services">Services</a></li>
                 <li><a class="nav-link scrollto" href="#departments">Departments</a></li>
+                <li><a class="nav-link scrollto" href="donation.html">Donation</a></li>
                 <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
                 {% if user.is_authenticated %}
                     <li class="nav-item active">
-                        <a class="nav-item nav-link" href="statistics.html">Your Statistics</a>
+                        <a class="nav-item nav-link" href="charts.html">Charts</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-item nav-link" href="robot.html">Your Assistant</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-item nav-link" href="training.html">Program</a>
+                        <a class="nav-item nav-link" href="courses.html">Courses</a>
                     </li>
                     <li><a class="nav-link scrollto" href="doctors.html">Doctors</a></li>
+                    <li><a class="nav-link" href="test.html">Test</a></li>
                     <li class="nav-item active">
                         <a class="nav-item nav-link" href="edit_profile.html">Edit Profile</a>
                     </li>
@@ -92,7 +94,7 @@
                 {% else %}
                     <li class="nav-item active">
                         <a class="nav-item nav-link" href="login.html">Login</a>
-                    </li>                
+                    </li>
                 {% endif %}
 
             </ul>
